@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: prometheus-ingress
+  namespace: prometheus
+  annotations:
+    # use the shared ingress-nginx
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  # ingressClassName: nginx # use only with k8s version >= 1.18.0
+  tls:
+  - hosts:
+    - prometheus.domain.com
+    secretName: cafe-secret
+  rules:
+  - host: prometheus.domain.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: prometheus-prometheus-oper-prometheus
+          servicePort: 9090
+
+  - host: grafana.domain.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: prometheus-grafana
+          servicePort: 80
