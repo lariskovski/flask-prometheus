@@ -5,6 +5,11 @@ app = Flask(__name__)
 
 setup_metrics(app)
 
+CONTENT_TYPE_LATEST = str('text/plain; version=0.0.4; charset=utf-8')
+
+@app.route('/metrics/')
+def metrics():
+    return Response(prometheus_client.generate_latest(), mimetype=CONTENT_TYPE_LATEST)
 
 @app.route('/test/')
 def test():

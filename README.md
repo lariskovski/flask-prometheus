@@ -16,3 +16,5 @@ for i in {1..100}; do curl localhost:5000/test/ ; sleep 1 ; done
 ~~~~
 
 ## Source
+
+https://www.cloudbees.com/blog/monitoring-your-synchronous-python-web-applications-using-prometheus
